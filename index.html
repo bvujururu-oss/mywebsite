@@ -3,61 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-
+    <title>My Professional Portfolio & Blog</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            color: #222;
-        }
-
-        header {
-            background: #111;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        main {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 30px;
-            text-align: center;
-            background: white;
-            border-radius: 15px;
-        }
-
-        button {
-            padding: 12px 25px;
-            border: 0;
-            border-radius: 8px;
-            background: #111;
-            color: white;
-            font-size: 16px;
-        }
+        /* Modern Design Essentials */
+        :root { --primary: #0070f3; --bg: #ffffff; --text: #333333; --card-bg: #f4f6f9; }
+        .dark-mode { --bg: #121212; --text: #ffffff; --card-bg: #1e1e1e; }
+        
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; background: var(--bg); color: var(--text); transition: 0.3s; }
+        
+        /* Sticky Navigation Bar */
+        nav { background: #0070f3; padding: 15px; position: sticky; top: 0; display: flex; justify-content: space-around; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        nav a { color: white; text-decoration: none; font-weight: bold; cursor: pointer; }
+        
+        /* Layout Grid and Containers */
+        .container { max-width: 900px; margin: 30px auto; padding: 20px; }
+        .page-section { display: none; animation: fadeIn 0.4s ease; }
+        .active-section { display: block; }
+        
+        /* Grid Layout for Projects / Services / Blogs */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); text-align: left; }
+        
+        /* Interactive Elements */
+        button { background: #0070f3; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        button:hover { background: #0051b3; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; background: var(--bg); color: var(--text); box-sizing: border-box; }
+        .success-msg { color: #28a745; font-weight: bold; margin-top: 15px; display: none; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-
 <body>
 
-<header>
-    <h1>My Website</h1>
-</header>
+    <!-- Main Navigation Bar -->
+    <nav>
+        <a onclick="switchTab('home')">Home</a>
+        <a onclick="switchTab('portfolio')">Projects & Blog</a>
+        <a onclick="switchTab('contact')">Contact</a>
+    </nav>
 
-<main>
-    <h2>Welcome 👋</h2>
-    <p>This website was created using Termux on Android.</p>
+    <div class="container">
+        
+        <!-- HOME SECTION -->
+        <div id="home" class="page-section active-section" style="text-align: center;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Hi, I'm Your Name</h1>
+            <p style="font-size: 1.2rem; color: #666;">Welcome to my official professional workspace website.</p>
+            <p>I build high-performance web experiences using automation and cloud architecture.</p>
+            <br>
+            <button onclick="toggleTheme()">🌙 Toggle Dark Theme</button>
+        </div>
 
-    <button onclick="alert('Welcome to my website!')">
-        Click Me
-    </button>
-</main>
+        <!-- PORTFOLIO & BLOG GRID SECTION -->
+        <div id="portfolio" class="page-section">
+            <h1 style="text-align: center;">My Work & Articles</h1>
+            <div class="grid">
+                <div class="card">
+                    <h3>🚀 Showcase Item 1</h3>
+                    <p>Describe your premier project, core business service, or top featured blog post right here.</p>
+                </div>
+                <div class="card">
+                    <h3>⚡ Showcase Item 2</h3>
+                    <p>Describe your secondary application, client services package, or trending news article.</p>
+                </div>
+                <div class="card">
+                    <h3>📈 Showcase Item 3</h3>
+                    <p>Add analytics tracking information, strategic insights, or general portfolio updates.</p>
+                </div>
+            </div>
+        </div>
 
+        <!-- CONTACT FORM SECTION -->
+        <div id="contact" class="page-section">
+            <h1 style="text-align: center;">Let's Collaborate</h1>
+            <p style="text-align: center;">Fill out the structural form below to send an immediate inquiry.</p>
+            <form id="mainContactForm" onsubmit="processForm(event)">
+                <input type="text" placeholder="Your Full Name" required>
+                <input type="email" placeholder="Your Email Address" required>
+                <textarea rows="5" placeholder="Project details or message content..." required></textarea>
+                <button type="submit">Submit Request</button>
+            </form>
+            <div id="formSuccess" class="success-msg" style="text-align: center;">
+                🎉 Validation Successful! Your transmission was safely captured.
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Navigation and Theme System -->
+    <script>
+        // Tab Navigation Logic
+        function switchTab(sectionId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            document.getElementById(sectionId).classList.add('active-section');
+        }
+
+        // Theme Toggle Logic
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Contact Form Processing Logic
+        function processForm(event) {
+            event.preventDefault();
+            document.getElementById('mainContactForm').style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
